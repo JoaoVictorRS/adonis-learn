@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Comanda from './comanda.js'
 
 export default class FormaPagamento extends BaseModel {
   @column({ isPrimary: true })
@@ -13,4 +15,7 @@ export default class FormaPagamento extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @hasMany(() => Comanda)
+  declare comandas: HasMany<typeof Comanda>
 }

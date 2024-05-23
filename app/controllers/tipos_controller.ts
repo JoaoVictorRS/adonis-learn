@@ -12,7 +12,10 @@ export default class TiposController {
   }
 
   async show({ params }: HttpContext) {
-    return await Tipo.findOrFail(params.id)
+    return await Tipo.query()
+                      .where('id', params.id)
+                      .preload('produtos')
+                      .first()
   }
 
   async store({ request }: HttpContext) {

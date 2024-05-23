@@ -11,7 +11,10 @@ export default class FuncionariosController {
   }
 
   async show({ params }: HttpContext) {
-    return await Funcionario.findOrFail(params.id)
+    return await Funcionario.query()
+                            .where('id', params.id)
+                            .preload('tipo')
+                            .first()
   }
 
   async store({ request }: HttpContext) {

@@ -11,7 +11,10 @@ export default class CargosController {
   }
 
   async show({ params }: HttpContext) {
-    return await Cargo.findOrFail(params.id)
+    return await Cargo.query()
+                      .where('id', params.id)
+                      .preload('funcionarios')
+                      .first()
   }
 
   async store({ request }: HttpContext) {

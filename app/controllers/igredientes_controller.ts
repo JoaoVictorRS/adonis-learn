@@ -12,7 +12,10 @@ export default class IgredientesController {
   }
 
   async show({ params }: HttpContext) {
-    return await Igrediente.findOrFail(params.id)
+    return await Igrediente.query()
+                          .where('id', params.id)
+                          .preload('produtos')
+                          .first()
   }
 
   async store({ request }: HttpContext) {

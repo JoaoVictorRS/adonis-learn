@@ -11,7 +11,10 @@ export default class FormaPagamentosController {
   }
 
   async show({ params }: HttpContext) {
-    return await FormaPagamento.findOrFail(params.id)
+    return await FormaPagamento.query()
+                               .where('id', params.id)
+                               .preload('comandas')
+                               .first()
   }
 
   async store({ request }: HttpContext) {

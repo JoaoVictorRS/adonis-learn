@@ -11,7 +11,11 @@ export default class ProdutosComandasController {
   }
 
   async show({ params }: HttpContext) {
-    return await ProdutosComanda.findOrFail(params.id)
+    return await ProdutosComanda.query()
+      .where('id', params.id)
+      .preload('comanda')
+      .preload('produto')
+      .first()
   }
 
   async store({ request }: HttpContext) {
